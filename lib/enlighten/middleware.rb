@@ -9,7 +9,11 @@ module Enlighten
       if (request.path =~ /^\/enlighten/)
         [200, {}, ["enlighten"]]
       else
-        @app.call(env)
+        begin
+          @app.call(env)
+        rescue Enlighten::Trigger => e
+          [200, {}, ["triggered #{e.inspect}"]]
+        end
       end
     end
   end

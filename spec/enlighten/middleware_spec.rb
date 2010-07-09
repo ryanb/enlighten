@@ -17,3 +17,15 @@ describe Enlighten::Middleware, "simple app" do
     @request.get("/enlighten/foo").body.should_not == "hello"
   end
 end
+
+describe Enlighten::Middleware, "with trigger" do
+  before(:each) do
+    app = proc { |e| raise Enlighten::Trigger }
+    middleware = Enlighten::Middleware.new(app)
+    @request = Rack::MockRequest.new(middleware)
+  end
+  
+  it "should rescue from exception and return a successful response" do
+    @request.get("/foobar").status.should == 200
+  end
+end
