@@ -11,8 +11,12 @@ module Enlighten
       else
         begin
           @app.call(env)
-        rescue Enlighten::Trigger => e
-          [200, {}, ["triggered #{e.inspect}"]]
+        rescue Exception => e
+          if e.kind_of?(Trigger) || (e.respond_to?(:original_exception) && e.original_exception.kind_of?(Trigger))
+            [200, {}, ["triggered"]]
+          else
+            raise e
+          end
         end
       end
     end
