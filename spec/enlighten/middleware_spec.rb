@@ -7,11 +7,11 @@ class WrapperException < Exception
   end
 end
 
-describe Enlighten::Middleware, "simple app" do
+describe Enlighten::Middleware do
   before(:each) do
     @app = nil
-    middleware = Enlighten::Middleware.new(proc { |e| @app.call(e) })
-    @request = Rack::MockRequest.new(middleware)
+    @middleware = Enlighten::Middleware.new(proc { |e| @app.call(e) })
+    @request = Rack::MockRequest.new(@middleware)
   end
   
   describe "simple app" do
@@ -48,5 +48,13 @@ describe Enlighten::Middleware, "simple app" do
   it "with normal exception in wrapper should not rescue from the exception" do
     @app = proc { |e| raise WrapperException.new(Exception.new) }
     lambda { @request.get("/foobar") }.should raise_error(WrapperException)
+  end
+  
+  it "should default to an enlighten app that has no trigger" do
+    @middleware.enlighten_app.trigger.should be_nil
+  end
+  
+  it "should remember enlighten app" do
+    @middleware.enlighten_app.should == @middleware.enlighten_app
   end
 end
