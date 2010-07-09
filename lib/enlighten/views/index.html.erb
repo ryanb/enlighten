@@ -3,10 +3,17 @@
   <head>
     <title>Enlighten</title>
     <script src="/enlighten/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/enlighten/javascripts/enlighten.js" type="text/javascript" charset="utf-8"></script>
   </head>
   <body>
     <% if @trigger %>
-      <p><%= @trigger.inspect %></p>
+      <form id="console" action="/enlighten/execute" method="post">
+        <p>
+          &gt;&gt;
+          <input type="text" name="prompt" value="" id="prompt" />
+          <input type="submit" value="Send">
+        </p>
+      </form>
     <% else %>
       <p>Not yet enlightened.</p>
     <% end %>

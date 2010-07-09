@@ -53,4 +53,8 @@ describe Enlighten do
   it "should return static files in enlighten path" do
     @request.get("/enlighten/javascripts/jquery-1.4.2.min.js").body.should include("jQuery")
   end
+  
+  it "should pass to application for other paths" do
+    @request.get("/enlighten.js").status.should == 200
+  end
 end
