@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enlighten</title>
+    <script src="/enlighten/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <% if @trigger %>
+      <p><%= @trigger.inspect %></p>
+    <% else %>
+      <p>Not yet enlightened.</p>
+    <% end %>
+  </body>
+</html>

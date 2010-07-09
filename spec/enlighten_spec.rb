@@ -7,10 +7,10 @@ class WrapperException < Exception
   end
 end
 
-describe Enlighten::Middleware do
+describe Enlighten do
   before(:each) do
     @app = nil
-    @middleware = Enlighten::Middleware.new(proc { |e| @app.call(e) })
+    @middleware = Enlighten.new(proc { |e| @app.call(e) })
     @request = Rack::MockRequest.new(@middleware)
   end
   
@@ -50,11 +50,7 @@ describe Enlighten::Middleware do
     lambda { @request.get("/foobar") }.should raise_error(WrapperException)
   end
   
-  it "should default to an enlighten app that has no trigger" do
-    @middleware.enlighten_app.trigger.should be_nil
-  end
-  
-  it "should remember enlighten app" do
-    @middleware.enlighten_app.should == @middleware.enlighten_app
+  it "should return static files in enlighten path" do
+    @request.get("/enlighten/javascripts/jquery-1.4.2.min.js").body.should include("jQuery")
   end
 end
