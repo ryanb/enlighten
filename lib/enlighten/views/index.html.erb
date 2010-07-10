@@ -4,15 +4,16 @@
     <title>Enlighten</title>
     <script src="/enlighten/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/enlighten/javascripts/enlighten.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/enlighten/stylesheets/enlighten.css" type="text/css" charset="utf-8" />
   </head>
   <body>
     <% if @trigger %>
       <form id="console" action="/enlighten/execute" method="post">
-        <p>
+        <div id="prompt_section">
           &gt;&gt;
           <input type="text" name="prompt" value="" id="prompt" />
           <input type="submit" value="Send">
-        </p>
+        </div>
       </form>
     <% else %>
       <p>Not yet enlightened.</p>

@@ -5,7 +5,7 @@ class Enlighten
   def initialize(app)
     @external_app = app
     @enlighten_app = Application.new
-    @static_app = Rack::Static.new(@enlighten_app, :urls => ["/enlighten/javascripts"], :root => public_path)
+    @static_app = Rack::Static.new(@enlighten_app, :urls => ["/enlighten/javascripts", "/enlighten/stylesheets"], :root => public_path)
   end
   
   def call(env)

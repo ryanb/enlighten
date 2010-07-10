@@ -1,0 +1,18 @@
+body {
+  background-color: #777;
+}
+
+#console {
+  width: 80%;
+  margin: auto;
+  background-color: #333;
+  color: #FFF;
+  padding: 5px 10px;
+  border: solid 1px #000;
+  font-family: Menlo, Monaco, Courier;
+  line-height: 1.5em;
+}
+
+#prompt {
+  width: 300px;
+}
