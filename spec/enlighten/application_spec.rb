@@ -6,29 +6,30 @@ describe Enlighten::Application do
     @request = Rack::MockRequest.new(@app)
   end
   
-  it "should render an HTML view" do
-    @request.get("/enlighten").body.should include("<html")
+  it "should say not yet enlightened when socket connection fails" do
+    stub(TCPSocket).new("localhost", 8989) { raise Errno::ECONNREFUSED }
+    @request.get("/").body.should include("Not yet enlightened")
   end
   
-  it "should say not yet enlightened" do
-    @request.get("/enlighten").body.should include("Not yet enlightened")
-  end
-  
-  describe "with trigger" do
+  describe "/" do
     before(:each) do
-      begin
-        raise Enlighten::Trigger.new
-      rescue Enlighten::Trigger => e
-        @app.trigger = e
-      end
+      @app.socket = MockDebuggerSocket.new
+      @response = @request.get("/")
     end
     
-    it "should show text area" do
-      @request.get("/enlighten").body.should include("<input")
+    it "should render an HTML view" do
+      @response.body.should include("<html")
     end
     
-    it "should" do
-      @request.post("/enlighten/execute", :params => {"prompt" => "self.class.name"}).body.should == self.class.name.inspect
+    it "should include text input" do
+      @response.body.should include("<input")
     end
+  end
+  
+  it "/debugger/eval should evaluate and return response" do
+    @app.socket = MockDebuggerSocket.new
+    mock(@app.socket).puts("eval chunky")
+    @app.socket.buffer << "bacon"
+    @request.get("/debugger/eval?code=chunky").body.should == "bacon\n"
   end
 end

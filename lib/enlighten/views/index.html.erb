@@ -2,13 +2,13 @@
 <html>
   <head>
     <title>Enlighten</title>
-    <script src="/enlighten/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/enlighten/javascripts/enlighten.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href="/enlighten/stylesheets/enlighten.css" type="text/css" charset="utf-8" />
+    <script src="/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/enlighten.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/stylesheets/enlighten.css" type="text/css" charset="utf-8" />
   </head>
   <body>
-    <% if @trigger %>
-      <form id="console" action="/enlighten/execute" method="post">
+    <% if @socket %>
+      <form id="console" action="/execute" method="post">
         <div id="prompt_section">
           &gt;&gt;
           <input type="text" name="prompt" value="" id="prompt" />
@@ -17,6 +17,7 @@
       </form>
     <% else %>
       <p>Not yet enlightened.</p>
+      <p>Unable to establish a connection to the ruby-debug server. Make sure a "debugger" statement has been triggered and try again.</p>
     <% end %>
   </body>
 </html>
