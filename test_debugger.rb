@@ -6,6 +6,12 @@ Debugger.start_remote
 
 before = true
 puts "before"
-debugger
+def foo
+  foo = "bar"
+  @test = 1
+  debugger
+  nil
+end
+foo
 after = true
 puts "after"

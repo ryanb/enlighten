@@ -1,18 +1,53 @@
 body {
-  background-color: #777;
+  background-color: #FFF;
+  font-family: Verdana;
 }
 
-#console {
-  width: 80%;
-  margin: auto;
-  background-color: #333;
-  color: #FFF;
-  padding: 5px 10px;
-  border: solid 1px #000;
-  font-family: Menlo, Monaco, Courier;
-  line-height: 1.5em;
+#side {
+  float: right;
+  margin-right: 40px;
+}
+
+.backtrace {
+  margin-top: 30px;
+}
+
+table.code {
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+pre {
+  margin: 0;
+  padding: 0;
+}
+
+.code .num {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.code .current td {
+  background-color: #63EF6A;
+}
+
+#prompt_section pre {
+  display: inline;
 }
 
 #prompt {
+  min-width: 400px;
+}
+
+#prompt .response {
+  color: #999;
+}
+
+#prompt_cursor {
+  vertical-align: bottom;
+  padding-bottom: 5px;
+}
+
+#prompt_field {
   width: 300px;
 }

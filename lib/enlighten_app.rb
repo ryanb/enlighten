@@ -1,4 +1,5 @@
 require "erb"
 require "rack"
 
-require "enlighten/application"
+require File.expand_path("../enlighten/application", __FILE__)
+require File.expand_path("../enlighten/debugger", __FILE__)

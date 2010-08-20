@@ -1,6 +1,6 @@
 module Enlighten
   class Application
-    attr_accessor :socket
+    attr_writer :debugger
     
     def call(env)
       request = Rack::Request.new(env)
@@ -12,8 +12,7 @@ module Enlighten
     end
     
     def call_debugger(command, params)
-      @socket.puts command + " " + params["code"]
-      respond_with(socket_response)
+      respond_with(@debugger.eval_code(params["code"]))
     end
     
     def render_index
@@ -38,29 +37,12 @@ module Enlighten
     end
     
     def connect_to_debugger
-      if @socket.nil?
-        @socket = TCPSocket.new("localhost", 8989)
-        socket_response # get to first prompt
+      if @debugger.nil?
+        @debugger = Debugger.new(TCPSocket.new("localhost", 8989))
+        @debugger.socket_response # get to first prompt
       end
     rescue Errno::ECONNREFUSED => e
-      @socket = nil
-    end
-    
-    def socket_response
-      continue = true
-      response = []
-      while continue && line = @socket.gets
-        print line
-        case line 
-        when /^PROMPT (.*)$/
-          continue = false
-        when /^CONFIRM (.*)$/
-          socket.puts "y"
-        else
-          response << line
-        end
-      end
-      response.join
+      @debugger = nil
     end
   end
 end

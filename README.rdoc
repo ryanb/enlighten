@@ -1,3 +1,20 @@
 = Enlighten
 
-Stay tuned...
+Use ruby-debug through the browser! This is intended to be a convenient way to debug web applications but it is still in very early development. For those feeling adventerous, here's how to get it set up.
+
+== Setup
+
+This will be available as a gem but is not yet. It is currently just a rack application which you can run after downloading this repository.
+
+  rackup config.ru
+
+If you browse to the app it will say not yet enlightened. You'll need to trigger ruby-debug remotely in a separate script like this.
+
+  require "rubygems"
+  require "ruby-debug"
+  Debugger.wait_connection = true
+  Debugger.start_remote
+  
+  debugger # call anywhere you want to debug
+
+After this, visit the Enlighten app again and you should see some debugging information as well as an interactive prompt. Much more will be added to improve the experience so stay tuned.

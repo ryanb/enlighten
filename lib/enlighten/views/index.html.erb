@@ -7,14 +7,41 @@
     <link rel="stylesheet" href="/stylesheets/enlighten.css" type="text/css" charset="utf-8" />
   </head>
   <body>
-    <% if @socket %>
-      <form id="console" action="/execute" method="post">
-        <div id="prompt_section">
-          &gt;&gt;
-          <input type="text" name="prompt" value="" id="prompt" />
-          <input type="submit" value="Send">
+    <% if @debugger %>
+      <div id="side">
+        <strong>Variables</strong><br />
+        <% @debugger.local_variables.each do |name, value| %>
+          <%= name %> = <%= value %><br />
+        <% end %>
+        <% @debugger.instance_variables.each do |name, value| %>
+          <%= name %> = <%= value %><br />
+        <% end %>
+      </div>
+      <div id="prompt">
+        <form action="/debugger/eval" method="post">
+          <div id="prompt_section">
+            <pre>&gt;&gt; </pre>
+            <input type="text" name="code" value="" id="prompt_field" />
+            <input type="submit" value="Run">
+          </div>
+        </form>
+      </div>
+      <% @debugger.backtrace.each do |current, frame_num, description| %>
+        <div class="backtrace">
+          <strong>#<%= frame_num %>
+          <%= description %></strong>
+          <% if current %>
+            <table class="code">
+              <% @debugger.list.each do |current, num, line| %>
+                <tr class="<%= current ? "current" : "not_current" %>">
+                  <td class="num"><pre><%= num %></pre></td>
+                  <td class="line"><pre><%= line %></pre></td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
         </div>
-      </form>
+      <% end %>
     <% else %>
       <p>Not yet enlightened.</p>
       <p>Unable to establish a connection to the ruby-debug server. Make sure a "debugger" statement has been triggered and try again.</p>

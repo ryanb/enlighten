@@ -17,6 +17,6 @@ class MockDebuggerSocket
   end
   
   def gets
-    (@buffer.shift || "PROMPT (rdb:1) ") + "\n"
+    @buffer.shift || "PROMPT (rdb:1) \n"
   end
 end
