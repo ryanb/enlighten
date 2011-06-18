@@ -1,7 +1,7 @@
 module Enlighten
   class Application
     attr_writer :debugger
-    
+
     def call(env)
       request = Rack::Request.new(env)
       case request.path
@@ -10,32 +10,32 @@ module Enlighten
       else [404, {"Content-Type" => "text/plain"}, ["Not Found"]]
       end
     end
-    
+
     def call_debugger(command, params)
       respond_with(@debugger.eval_code(params["code"]))
     end
-    
+
     def render_index
       connect_to_debugger
       render("index.html")
     end
-    
+
     def render(view_file)
       respond_with(erb(view_file))
     end
-    
+
     def respond_with(content)
       [200, {"Content-Type" => "text/html"}, [content]]
     end
-    
+
     def erb(view_file)
       ERB.new(File.read("#{view_path}/#{view_file}.erb")).result(binding)
     end
-    
+
     def view_path
       File.expand_path(File.dirname(__FILE__) + "/views/")
     end
-    
+
     def connect_to_debugger
       if @debugger.nil?
         @debugger = Debugger.new(TCPSocket.new("localhost", 8989))

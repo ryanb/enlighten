@@ -14,7 +14,7 @@ If you browse to the app it will say not yet enlightened. You'll need to trigger
   require "ruby-debug"
   Debugger.wait_connection = true
   Debugger.start_remote
-  
+
   debugger # call anywhere you want to debug
 
 After this, visit the Enlighten app again and you should see some debugging information as well as an interactive prompt. Much more will be added to improve the experience so stay tuned.
