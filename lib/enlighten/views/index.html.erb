@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Enlighten</title>
-    <script src="/javascripts/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery-1.6.1.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/javascripts/enlighten.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="/stylesheets/enlighten.css" type="text/css" charset="utf-8" />
   </head>
@@ -11,9 +11,6 @@
       <div id="side">
         <strong>Variables</strong><br />
         <% @debugger.local_variables.each do |name, value| %>
-          <%= name %> = <%= value %><br />
-        <% end %>
-        <% @debugger.instance_variables.each do |name, value| %>
           <%= name %> = <%= value %><br />
         <% end %>
       </div>
@@ -43,8 +40,10 @@
         </div>
       <% end %>
     <% else %>
-      <p>Not yet enlightened.</p>
-      <p>Unable to establish a connection to the ruby-debug server. Make sure a "debugger" statement has been triggered and try again.</p>
+      <div id="not_enlightened">
+        <h1>Not yet enlightened.</h1>
+        <p>Unable to establish a connection to the ruby-debug server. Make sure a "debugger" statement has been triggered and try again.</p>
+      </div>
     <% end %>
   </body>
 </html>
