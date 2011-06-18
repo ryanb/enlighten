@@ -3,7 +3,7 @@ PATH
   specs:
     enlighten (0.0.1.alpha)
       launchy (~> 0.4.0)
-      rack (~> 1.3.0)
+      rack (> 1.2.0)
       ruby-debug19 (~> 0.11.6)
 
 GEM

@@ -1,5 +1,7 @@
 require "launchy"
 
+require "enlighten/railtie" if defined? Rails
+
 module Enlighten
   module Global
     def enlighten
