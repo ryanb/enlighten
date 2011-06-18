@@ -8,7 +8,7 @@ describe Enlighten::Application do
 
   it "should say not yet enlightened when socket connection fails" do
     TCPSocket.stub(:new).with("localhost", 8989) { raise Errno::ECONNREFUSED }
-    @request.get("/").body.should include("Not yet enlightened")
+    @request.get("/").body.should include("Not enlightened")
   end
 
   it "/ should be an html document" do

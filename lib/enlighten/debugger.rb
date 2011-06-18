@@ -41,14 +41,12 @@ module Enlighten
     end
 
     def local_variables
-      puts run_command("info locals").inspect
       run_command("info locals").split("\n").map do |variable|
         variable.split(" = ")
       end
     end
 
     def instance_variables
-      puts run_command("info instance_variables").inspect
       run_command("info instance_variables").split("\n").map do |variable|
         variable.split(" = ")
       end
@@ -60,7 +58,6 @@ module Enlighten
     end
 
     def socket_response
-      return if @socket.closed?
       continue = true
       response = []
       while continue && line = @socket.gets

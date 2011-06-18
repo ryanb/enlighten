@@ -1,16 +1,15 @@
 # Simple script to start a debugger for testing
-require "rubygems"
-require "ruby-debug"
-Debugger.wait_connection = true
-Debugger.start_remote
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
 
 before = true
 puts "before"
 def foo
-  foo = "bar"
+  foo = "foo"
   @test = 1
-  debugger
-  nil
+  enlighten
+  foo = "bar"
 end
 foo
 after = true
