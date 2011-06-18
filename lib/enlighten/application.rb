@@ -1,3 +1,5 @@
+require "socket"
+
 module Enlighten
   class Application
     attr_writer :debugger

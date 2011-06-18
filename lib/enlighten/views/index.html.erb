@@ -8,41 +8,45 @@
   </head>
   <body>
     <% if @debugger %>
-      <div id="side">
-        <strong>Variables</strong><br />
-        <% @debugger.local_variables.each do |name, value| %>
-          <%= name %> = <%= value %><br />
-        <% end %>
-      </div>
-      <div id="prompt">
-        <form action="/debugger/eval" method="post">
-          <div id="prompt_section">
-            <pre>&gt;&gt; </pre>
-            <input type="text" name="code" value="" id="prompt_field" />
-            <input type="submit" value="Run">
-          </div>
-        </form>
-      </div>
-      <% @debugger.backtrace.each do |current, frame_num, description| %>
-        <div class="backtrace">
-          <strong>#<%= frame_num %>
-          <%= description %></strong>
-          <% if current %>
-            <table class="code">
-              <% @debugger.list.each do |current, num, line| %>
-                <tr class="<%= current ? "current" : "not_current" %>">
-                  <td class="num"><pre><%= num %></pre></td>
-                  <td class="line"><pre><%= line %></pre></td>
-                </tr>
-              <% end %>
-            </table>
+      <div id="container">
+        <h1>Enlighten</h1>
+        <div id="side">
+          <strong>Local Variables</strong>
+          <% @debugger.local_variables.each do |name, value| %>
+            <div class="var"><%= name %> = <%= value %></div>
           <% end %>
         </div>
-      <% end %>
+        <div id="prompt">
+          <form action="/debugger/eval" method="post">
+            <div id="prompt_section">
+              <pre>&gt;&gt; </pre>
+              <input type="text" name="code" value="" id="prompt_field" />
+              <input type="submit" value="Run">
+            </div>
+          </form>
+        </div>
+        <% @debugger.backtrace.each do |current, frame_num, description| %>
+          <div class="backtrace">
+            <strong>#<%= frame_num %>
+            <%= description %></strong>
+            <% if current %>
+              <table class="code">
+                <% @debugger.list.each do |current, num, line| %>
+                  <tr class="<%= current ? "current" : "not_current" %>">
+                    <td class="num"><pre><%= num %></pre></td>
+                    <td class="line"><pre><%= line %></pre></td>
+                  </tr>
+                <% end %>
+              </table>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     <% else %>
       <div id="not_enlightened">
-        <h1>Not yet enlightened.</h1>
-        <p>Unable to establish a connection to the ruby-debug server. Make sure a "debugger" statement has been triggered and try again.</p>
+        <h1>Not enlightened.</h1>
+        <p>Unable to establish a connection to the ruby-debug server.</p>
+        <p>Make sure a <code>debugger</code> statement has been triggered and try again.</p>
       </div>
     <% end %>
   </body>

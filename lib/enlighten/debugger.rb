@@ -60,6 +60,7 @@ module Enlighten
     end
 
     def socket_response
+      return if @socket.closed?
       continue = true
       response = []
       while continue && line = @socket.gets
