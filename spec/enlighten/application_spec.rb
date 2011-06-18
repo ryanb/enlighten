@@ -22,4 +22,12 @@ describe Enlighten::Application do
     debugger.stub(:eval_code).with("chunky") { "bacon" }
     @request.get("/debugger/eval?code=chunky").body.should == "bacon"
   end
+
+  it "/debugger/continue should send a continue command" do
+    debugger = Enlighten::Debugger.new(MockDebuggerSocket.new)
+    @app.debugger = debugger
+    debugger.should_receive(:continue)
+    @request.get("/debugger/continue").status.should == 302
+    @app.debugger.should be_nil
+  end
 end

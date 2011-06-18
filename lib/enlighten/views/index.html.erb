@@ -25,6 +25,7 @@
             </div>
           </form>
         </div>
+        <p><a href="/debugger/continue">Continue</a></p>
         <% @debugger.backtrace.each do |current, frame_num, description| %>
           <div class="backtrace">
             <strong>#<%= frame_num %>
@@ -46,7 +47,7 @@
       <div id="not_enlightened">
         <h1>Not enlightened.</h1>
         <p>Unable to establish a connection to the ruby-debug server.</p>
-        <p>Make sure a <code>debugger</code> statement has been triggered and try again.</p>
+        <p>Make sure an <code>enlighten</code> statement has been triggered and try again.</p>
       </div>
     <% end %>
   </body>

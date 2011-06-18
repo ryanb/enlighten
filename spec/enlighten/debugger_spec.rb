@@ -12,6 +12,13 @@ describe Enlighten::Debugger do
     @debugger.eval_code("chunky").should == "bacon"
   end
 
+  it "should continue" do
+    @socket.should_receive(:puts).with("continue")
+    @socket.should_receive(:close)
+    @socket.buffer << "response\n"
+    @debugger.continue.should == "response"
+  end
+
   it "should list source code and split into numbered lines" do
     @socket.should_receive(:puts).with("list")
     @socket.buffer << "[8, 10] in test.rb\n   8  \n   9  chunky\n=> 10    bacon\n"

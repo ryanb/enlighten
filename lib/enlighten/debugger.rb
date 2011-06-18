@@ -8,6 +8,12 @@ module Enlighten
       run_command("eval " + code)
     end
 
+    def continue
+      result = run_command("continue")
+      @socket.close
+      result
+    end
+
     def list
       (run_command("list").split("\n")[1..-1] || []).map do |line|
         pieces = line.scan(/^(\=\>|  ) (\d+)  (.*)/).first

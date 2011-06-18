@@ -2,7 +2,7 @@ require "socket"
 
 module Enlighten
   class Application
-    attr_writer :debugger
+    attr_accessor :debugger
 
     def call(env)
       request = Rack::Request.new(env)
@@ -14,7 +14,16 @@ module Enlighten
     end
 
     def call_debugger(command, params)
-      respond_with(@debugger.eval_code(params["code"]))
+      case command
+      when "eval"
+        respond_with(@debugger.eval_code(params["code"]))
+      when "continue"
+        @debugger.continue
+        @debugger = nil
+        [302, {'Location'=> '/' }, []]
+      else
+        raise "Unknown debugger command: #{command}"
+      end
     end
 
     def render_index
