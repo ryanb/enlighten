@@ -15,8 +15,7 @@ describe Enlighten::Debugger do
   it "should continue" do
     @socket.should_receive(:puts).with("continue")
     @socket.should_receive(:close)
-    @socket.buffer << "response\n"
-    @debugger.continue.should == "response"
+    @debugger.continue
   end
 
   it "should list source code and split into numbered lines" do

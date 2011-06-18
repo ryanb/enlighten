@@ -25,7 +25,7 @@
             </div>
           </form>
         </div>
-        <p><a href="/debugger/continue">Continue</a></p>
+        <p><a href="/debugger/continue" class="continue">Continue</a></p>
         <% @debugger.backtrace.each do |current, frame_num, description| %>
           <div class="backtrace">
             <strong>#<%= frame_num %>

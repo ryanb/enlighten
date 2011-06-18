@@ -9,9 +9,8 @@ module Enlighten
     end
 
     def continue
-      result = run_command("continue")
+      run_command("continue")
       @socket.close
-      result
     end
 
     def list
