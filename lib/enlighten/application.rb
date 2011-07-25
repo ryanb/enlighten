@@ -20,7 +20,7 @@ module Enlighten
       when "continue"
         @debugger.continue
         @debugger = nil
-        [302, {'Location'=> '/' }, []]
+        [302, {'Location'=> '/', 'Content-Type' => 'text/html'}, []]
       else
         raise "Unknown debugger command: #{command}"
       end
